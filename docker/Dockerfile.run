@@ -21,4 +21,13 @@ RUN pip3 install --no-cache-dir -e .
 RUN mkdir logs && chown -R indy:indy logs && chmod -R ug+rw logs
 ADD aries_cloudagent ./aries_cloudagent
 
+#RUN sudo apt-get update && sudo apt-get install -y iputils-ping
+#RUN apt-get update && apt-get -y install sudo
+
 ENTRYPOINT ["/bin/bash", "-c", "aca-py \"$@\"", "--"]
+
+USER root
+RUN apt-get update && \
+      apt-get -y install -y sudo && \
+	apt-get install -y iputils-ping netcat
+
