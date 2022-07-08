@@ -1,7 +1,7 @@
 FROM bcgovimages/von-image:py36-1.15-1
 
 ENV ENABLE_PTVSD 0
-
+RUN echo "wallet create my-wallet key" > /tmp/t.txt; echo "key" | indy-cli /tmp/t.txt
 ADD requirements*.txt ./
 
 RUN pip3 install --no-cache-dir \
@@ -20,6 +20,7 @@ RUN pip3 install --no-cache-dir -e .
 
 RUN mkdir logs && chown -R indy:indy logs && chmod -R ug+rw logs
 ADD aries_cloudagent ./aries_cloudagent
+# ADD .indy_client /home/indy/.indy_client
 
 #RUN sudo apt-get update && sudo apt-get install -y iputils-ping
 #RUN apt-get update && apt-get -y install sudo
